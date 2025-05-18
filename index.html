@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arteterapia - Clínica TEIA</title>
+
+    <link rel="icon" type="image/png" href="puzzle-favicon.png">
+
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4; /* Fallback background */
+            color: #333;
+            position: relative; /* Needed for positioning container */
+            min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Container for falling symbols */
+        .symbol-container {
+            position: fixed; /* Fixed position to stay in background */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0; /* Behind the main content */
+            pointer-events: none; /* Allow clicks through */
+        }
+
+        /* Individual falling symbol style */
+        .falling-symbol {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            opacity: 0.7; /* Slightly more transparent */
+            animation: fall linear infinite;
+        }
+
+        .falling-symbol svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Falling animation keyframes */
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg); /* Fall below viewport */
+                opacity: 0;
+            }
+        }
+
+        /* Main content styling */
+        header, main, footer {
+            position: relative; /* Ensure content is above the animation */
+            z-index: 1;     /* Stacking order */
+            margin-left: 20px; /* Keep original margins */
+            margin-right: 20px;
+        }
+
+        header {
+            background-color: rgba(0, 123, 255, 0.9); /* Slightly transparent */
+            color: #fff;
+            padding: 20px;
+            text-align: center; /* Keep for fallback if flex fails */
+            border-radius: 8px;
+            margin-top: 20px; /* Adjust top margin */
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Logo Styling */
+        .header-logo {
+            max-height: 80px; /* Adjust this value to control logo size */
+            max-width: 90%;   /* Prevent logo spilling on small screens */
+            margin-bottom: 15px; /* Space between logo and title */
+            border-radius: 15px; /* Curves the corners */
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        section {
+            background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white */
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #0056b3;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+            margin-bottom: 15px; /* Added margin for spacing below h2 */
+        }
+
+        ul {
+            list-style: disc;
+            margin-left: 20px;
+            padding-left: 10px; /* Add some padding */
+        }
+
+        /* Styling for lists within sections, like the new routines list */
+        section ul li {
+            margin-bottom: 8px; /* Space between list items */
+        }
+
+        code {
+            background-color: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #c7254e;
+        }
+
+        .device-list {
+            column-count: 2;
+            column-gap: 20px;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .device-list li {
+            background-color: #f8f9fa;
+            margin-bottom: 8px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+            display: inline-block;
+            width: 100%;
+            overflow-wrap: break-word;
+        }
+
+        .warning {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border: 1px solid #ffeeba;
+            border-radius: 4px;
+            margin-top: 15px;
+            margin-bottom: 15px; /* Added margin for spacing */
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: #666;
+            background: rgba(244, 244, 244, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 600px) {
+            .device-list {
+                column-count: 1;
+            }
+            header h1 {
+                font-size: 1.8em;
+            }
+            section {
+                padding: 15px;
+            }
+            header, main, footer {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            .header-logo {
+                max-height: 60px;
+                margin-bottom: 10px;
+            }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="symbol-container"></div>
+
+    <header>
+        <img src="logo.jpg" alt="Logo da Clínica" class="header-logo">
+        <h1>Arteterapia</h1>
+    </header>
+
+    <main>
+        <section id="objetivo-geral">
+            <h2>1. Objetivo Geral</h2>
+            <p>Promover o desenvolvimento emocional, sensorial, cognitivo, comunicacional e social da pessoa com TEA e outras deficiências, por meio da expressão simbólica e criativa, utilizando recursos artísticos como forma de linguagem, regulação e construção de identidade. [cite: 39]</p>
+        </section>
+
+        <section id="objetivos-especificos">
+            <h2>2. Objetivos Específicos</h2>
+            <ul>
+                <li>Favorecer a expressão de emoções, pensamentos e necessidades através de imagens, formas, cores e texturas. [cite: 40]</li>
+                <li>Criar uma ponte comunicacional alternativa para pessoas com limitações na linguagem verbal. [cite: 41]</li>
+                <li>Reduzir estados de ansiedade, agitação ou estresse por meio de atividades com ritmo, repetição ou texturas calmantes. [cite: 42]</li>
+                <li>Estimular a tomada de decisões, a exploração espontânea e a construção de sentido pessoal na criação artística. [cite: 43]</li>
+                <li>Promover o protagonismo do sujeito no processo de produção, respeitando sua forma de ser e de criar. [cite: 44]</li>
+                <li>Favorecer a construção de autoimagem positiva, por meio de autorretratos, símbolos pessoais, criação de personagens, etc. [cite: 45]</li>
+                <li>Reforçar a valorização da produção individual, reconhecendo suas singularidades. [cite: 45]</li>
+                <li>Estimular percepção visual, atenção, memória, coordenação motora fina e planejamento por meio de atividades como pintura, recorte, colagem, modelagem e montagem. [cite: 46]</li>
+                <li>Trabalhar sequência, organização e raciocínio simbólico, importantes para a aprendizagem global. [cite: 47]</li>
+                <li>Melhorar a coordenação motora fina e ampla, o tônus muscular e a consciência corporal por meio de técnicas variadas (ex: uso de pincel, modelagem com argila, movimento com cavalete). [cite: 48]</li>
+                <li>Ampliar a percepção espacial e temporal, essenciais para a vida diária. [cite: 49]</li>
+                <li>Promover interação social mediada por atividades artísticas compartilhadas, respeitando o ritmo e os limites de cada participante. [cite: 50]</li>
+                <li>Estimular a escuta, o respeito ao outro e a cooperação em propostas grupais (ex: murais coletivos, colagens em duplas). [cite: 51]</li>
+                <li>Oferecer um ambiente de acolhimento, liberdade e contenção simbólica, onde a pessoa possa elaborar conflitos internos, traumas ou vivências difíceis de forma segura e gradual. [cite: 52]</li>
+                <li>Facilitar a resignificação de experiências por meio da arte. [cite: 53]</li>
+            </ul>
+        </section>
+        <section id="instrumentos-atividades">
+            <h2>Instrumentos/Atividades e Objetivos Associados</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Instrumento/Atividade</th>
+                        <th>Objetivos Associados</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cavaletes e telas</td>
+                        <td>Autonomia, consciência corporal, exploração de espaço [cite: 54]</td>
+                    </tr>
+                    <tr>
+                        <td>Tintas e pincéis</td>
+                        <td>Expressão emocional, percepção sensorial, coordenação fina [cite: 54]</td>
+                    </tr>
+                    <tr>
+                        <td>Argila/massinha</td>
+                        <td>Regulação sensorial, expressão tridimensional, controle motor [cite: 54]</td>
+                    </tr>
+                    <tr>
+                        <td>Colagens e recortes</td>
+                        <td>Planejamento, criatividade, reconstrução simbólica [cite: 54]</td>
+                    </tr>
+                    <tr>
+                        <td>Giz, lápis de cor, carvão</td>
+                        <td>Traço emocional, controle do gesto, representação de identidade [cite: 54]</td>
+                    </tr>
+                    <tr>
+                        <td>Espelhos (autorretrato)</td>
+                        <td>Autoimagem, identidade, percepção do corpo [cite: 54]</td>
+                    </tr>
+                    <tr>
+                        <td>Papéis diversos</td>
+                        <td>Escolha, organização, exploração visual e tátil [cite: 54]</td>
+                    </tr>
+                    <tr>
+                        <td>Objetos naturais</td>
+                        <td>Conexão com o real, memória afetiva, sensorialidade [cite: 54]</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>Tutorial criado para a equipe da Clínica. Bom trabalho!</p>
+        <p id="current-date"></p>
+    </footer>
+
+    <script>
+        const symbolContainer = document.querySelector('.symbol-container');
+        const colors = ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#4B0082', '#9400D3']; // Rainbow colors
+
+        const svgCircle = (color) => `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="45" fill="${color}" stroke="#fff" stroke-width="3"/></svg>`;
+        const svgSquare = (color) => `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="5" width="90" height="90" fill="${color}" stroke="#fff" stroke-width="3" rx="5" ry="5"/></svg>`;
+        const svgTriangle = (color) => `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="50,5 95,95 5,95" fill="${color}" stroke="#fff" stroke-width="3"/></svg>`;
+
+        const shapes = [svgCircle, svgSquare, svgTriangle];
+        const numberOfSymbols = 70; // Adjusted for potentially better performance/look
+
+        for (let i = 0; i < numberOfSymbols; i++) {
+            const symbol = document.createElement('div');
+            symbol.classList.add('falling-symbol');
+            symbol.style.left = Math.random() * 100 + 'vw'; // Spread across viewport width
+            symbol.style.animationDuration = Math.random() * 5 + 6 + 's'; // Duration between 6s and 11s
+            symbol.style.animationDelay = Math.random() * 6 + 's'; // Delay up to 6s
+
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            const randomShapeFunction = shapes[Math.floor(Math.random() * shapes.length)];
+            symbol.innerHTML = randomShapeFunction(randomColor);
+
+            symbolContainer.appendChild(symbol);
+        }
+
+        // Update date in footer
+        const updateDate = () => {
+            const dateElement = document.getElementById('current-date');
+            if (dateElement) {
+                const now = new Date();
+                // Formatting for Brazil (pt-BR) and São Paulo timezone
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'America/Sao_Paulo' };
+                dateElement.textContent = `Data atual: ${now.toLocaleDateString('pt-BR', options)}`;
+            }
+        };
+        updateDate(); // Call the function to set the date
+
+    </script>
+
+</body>
+</html>
