@@ -76,36 +76,39 @@
             border-radius: 8px;
             margin-top: 20px;
             margin-bottom: 20px;
-            display: flex; /* Changed for overall header content centering */
-            flex-direction: column; /* Ensure h1 is below logos */
+            display: flex;
+            flex-direction: column;
             align-items: center;
         }
 
-        .logo-container {
+        .logo-ensemble {
             display: flex;
-            align-items: center; /* Vertically align logos if they have different heights */
-            justify-content: center; /* Center logos horizontally */
-            gap: 15px; /* Space between logos */
-            margin-bottom: 15px; /* Space below the logos */
-            flex-wrap: wrap; /* Allow logos to wrap on smaller screens if necessary */
+            align-items: center; /* Vertically align logos */
+            justify-content: center; /* Center the group of logos */
+            gap: 15px; /* Space between the two logos */
+            margin-bottom: 20px; /* Space below the logos, before the H1 */
+            flex-wrap: wrap; /* Allow logos to wrap if needed on smaller screens */
+            width: 100%; /* Allow the ensemble to use header's centering */
         }
 
-        .header-logo { /* Styles for both logos */
-            max-height: 80px;
-            max-width: 45%; /* Adjust as needed, allows both to fit */
-            border-radius: 10px; /* Slightly adjusted for aesthetics */
-            object-fit: contain; /* Ensures the image aspect ratio is maintained */
-        }
-        
-        /* If you need specific styles for the slogan logo, you can use .slogan-logo */
-        .slogan-logo {
-             /* Example: max-height: 70px; if it needs to be slightly smaller */
+        .clinic-logo-discreet { /* For logo.jpg */
+            max-height: 45px; /* Noticeably smaller */
+            max-width: 120px; /* Control its width */
+            object-fit: contain;
+            border-radius: 8px;
         }
 
+        .main-slogan-logo { /* For 2-horizontal-slogan.png */
+            max-height: 65px; /* Taller and more prominent */
+            max-width: 70%;   /* Takes more horizontal space */
+            object-fit: contain;
+            border-radius: 8px; /* Optional, for consistency */
+        }
 
         header h1 {
             margin: 0;
             font-size: 2em;
+            width: 100%; /* Ensure H1 is also centered if text-align center is on header */
         }
 
         section {
@@ -180,6 +183,19 @@
             border-radius: 8px;
         }
 
+        @media (max-width: 768px) { /* Adjusted breakpoint for better layout changes */
+            .logo-ensemble {
+                /* On medium screens, still row, but main logo gets more emphasis */
+                gap: 10px;
+            }
+            .main-slogan-logo {
+                max-height: 60px;
+            }
+            .clinic-logo-discreet {
+                max-height: 40px;
+            }
+        }
+
         @media (max-width: 600px) {
             .device-list {
                 column-count: 1;
@@ -194,14 +210,19 @@
                 margin-left: 10px;
                 margin-right: 10px;
             }
-            .logo-container {
-                /* Optional: if you want logos to stack vertically on small screens */
-                /* flex-direction: column; */
-                gap: 10px; /* Reduce gap for smaller screens */
+            .logo-ensemble {
+                flex-direction: column; /* Stack logos */
+                gap: 12px; /* Adjust gap for stacked items */
             }
-            .header-logo {
-                max-height: 60px; /* Adjust logo size for smaller screens */
-                max-width: 80%; /* Allow logos to take more width if stacked or one is hidden */
+            .main-slogan-logo {
+                max-height: 55px; /* Adjust size for stacked view */
+                max-width: 90%;   /* Allow more width when stacked */
+                order: 2; /* Main slogan below clinic logo when stacked */
+            }
+            .clinic-logo-discreet {
+                max-height: 38px; /* Smaller when stacked */
+                max-width: 60%;
+                order: 1; /* Clinic logo on top when stacked */
             }
         }
 
@@ -225,9 +246,9 @@
     <div class="symbol-container"></div>
 
     <header>
-        <div class="logo-container">
-            <img src="logo.jpg" alt="Logo da Clínica" class="header-logo">
-            <img src="4-vertical-slogan.png" alt="Slogan da Clínica" class="header-logo slogan-logo">
+        <div class="logo-ensemble">
+            <img src="logo.jpg" alt="Logo da Clínica TEIA" class="clinic-logo-discreet">
+            <img src="2-horizontal-slogan.png" alt="Secretaria dos Direitos da Pessoa com Deficiência - São Paulo Governo do Estado" class="main-slogan-logo">
         </div>
         <h1>Arteterapia</h1>
     </header>
