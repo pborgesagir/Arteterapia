@@ -85,22 +85,22 @@
             display: flex;
             flex-direction: column; /* Stack logos vertically */
             align-items: center;   /* Center logos horizontally in the stack */
-            gap: 10px;             /* Space between stacked logos */
+            gap: 15px;             /* Increased gap for the larger logo */
             margin-bottom: 15px;   /* Space below the logos, before the H1 */
             width: 100%;
         }
 
-        .clinic-logo-discreet { /* For logo.jpg */
-            max-height: 45px;
-            max-width: 150px; /* Can be a bit wider as it's on its own line */
+        .clinic-logo-discreet { /* For logo.jpg - SIZE REVERTED */
+            max-height: 80px;      /* Reverted to original size */
+            max-width: 250px;      /* Set a generous max-width to allow scaling */
             object-fit: contain;
-            border-radius: 8px;
-            order: 2; /* Appears second (bottom) */
+            border-radius: 15px;   /* Reverted to original radius */
+            order: 2;              /* Appears second (bottom) */
         }
 
         .main-slogan-logo { /* For 2-horizontal-slogan.png */
             max-height: 60px;
-            max-width: 85%;   /* Allow it to be prominent */
+            max-width: 85%;
             object-fit: contain;
             border-radius: 8px;
             order: 1; /* Appears first (top) */
@@ -184,7 +184,6 @@
             border-radius: 8px;
         }
         
-        /* Responsive adjustments for logo sizes if needed */
         @media (max-width: 600px) {
             .device-list {
                 column-count: 1;
@@ -204,8 +203,7 @@
                 max-width: 90%; 
             }
             .clinic-logo-discreet {
-                max-height: 40px;
-                max-width: 130px;
+                max-height: 60px; /* Reverted to original mobile size */
             }
         }
 
