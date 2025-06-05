@@ -83,32 +83,33 @@
 
         .logo-ensemble {
             display: flex;
-            align-items: center; /* Vertically align logos */
-            justify-content: center; /* Center the group of logos */
-            gap: 15px; /* Space between the two logos */
-            margin-bottom: 20px; /* Space below the logos, before the H1 */
-            flex-wrap: wrap; /* Allow logos to wrap if needed on smaller screens */
-            width: 100%; /* Allow the ensemble to use header's centering */
+            flex-direction: column; /* Stack logos vertically */
+            align-items: center;   /* Center logos horizontally in the stack */
+            gap: 10px;             /* Space between stacked logos */
+            margin-bottom: 15px;   /* Space below the logos, before the H1 */
+            width: 100%;
         }
 
         .clinic-logo-discreet { /* For logo.jpg */
-            max-height: 45px; /* Noticeably smaller */
-            max-width: 120px; /* Control its width */
+            max-height: 45px;
+            max-width: 150px; /* Can be a bit wider as it's on its own line */
             object-fit: contain;
             border-radius: 8px;
+            order: 2; /* Appears second (bottom) */
         }
 
         .main-slogan-logo { /* For 2-horizontal-slogan.png */
-            max-height: 65px; /* Taller and more prominent */
-            max-width: 70%;   /* Takes more horizontal space */
+            max-height: 60px;
+            max-width: 85%;   /* Allow it to be prominent */
             object-fit: contain;
-            border-radius: 8px; /* Optional, for consistency */
+            border-radius: 8px;
+            order: 1; /* Appears first (top) */
         }
 
         header h1 {
             margin: 0;
             font-size: 2em;
-            width: 100%; /* Ensure H1 is also centered if text-align center is on header */
+            width: 100%;
         }
 
         section {
@@ -182,20 +183,8 @@
             padding: 10px;
             border-radius: 8px;
         }
-
-        @media (max-width: 768px) { /* Adjusted breakpoint for better layout changes */
-            .logo-ensemble {
-                /* On medium screens, still row, but main logo gets more emphasis */
-                gap: 10px;
-            }
-            .main-slogan-logo {
-                max-height: 60px;
-            }
-            .clinic-logo-discreet {
-                max-height: 40px;
-            }
-        }
-
+        
+        /* Responsive adjustments for logo sizes if needed */
         @media (max-width: 600px) {
             .device-list {
                 column-count: 1;
@@ -210,19 +199,13 @@
                 margin-left: 10px;
                 margin-right: 10px;
             }
-            .logo-ensemble {
-                flex-direction: column; /* Stack logos */
-                gap: 12px; /* Adjust gap for stacked items */
-            }
             .main-slogan-logo {
-                max-height: 55px; /* Adjust size for stacked view */
-                max-width: 90%;   /* Allow more width when stacked */
-                order: 2; /* Main slogan below clinic logo when stacked */
+                max-height: 50px; 
+                max-width: 90%; 
             }
             .clinic-logo-discreet {
-                max-height: 38px; /* Smaller when stacked */
-                max-width: 60%;
-                order: 1; /* Clinic logo on top when stacked */
+                max-height: 40px;
+                max-width: 130px;
             }
         }
 
@@ -247,9 +230,8 @@
 
     <header>
         <div class="logo-ensemble">
-            <img src="logo.jpg" alt="Logo da Clínica TEIA" class="clinic-logo-discreet">            
-            <img src="2-horizontal-slogan.png" alt="Secretaria dos Direitos da Pessoa com Deficiência - São Paulo Governo do Estado" class="main-slogan-logo">            
-
+            <img src="logo.jpg" alt="Logo da Clínica TEIA" class="clinic-logo-discreet">
+            <img src="2-horizontal-slogan.png" alt="Secretaria dos Direitos da Pessoa com Deficiência - São Paulo Governo do Estado" class="main-slogan-logo">
         </div>
         <h1>Arteterapia</h1>
     </header>
